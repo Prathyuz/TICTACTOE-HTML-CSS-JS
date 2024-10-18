@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>XOXO</title>
+  </head>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-image: url(wallpaperflare.com_wallpaper.jpg);
+      background-position: center;
+    }
+    h1 {
+      color: white;
+      text-shadow: 1px 1px 2px black, 0 0 1em aqua, 0 0 0.2em aqua;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      background-color: rgba(169, 169, 169, 0.082);
+      gap: 1rem 1rem;
+      padding: 20px;
+      border-radius: 17px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+    .container:hover {
+      box-shadow: rgb(2, 255, 242) 0px 22px 70px 4px;
+    }
+    .item {
+      padding: auto;
+      height: 100px;
+      width: 100px;
+      border-radius: 10px;
+      font-size: 60px;
+      border: none;
+      font-weight: bold;
+    }
+    .item:hover {
+      background-color: rgb(0, 204, 255);
+    }
+    .res {
+      width: 80px;
+      margin-top: 30px;
+      border-radius: 20px;
+      font-weight: bolder;
+      font-size: 18px;
+      color: aqua;
+      background-color: rgba(0, 0, 0, 0.226);
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+    }
+    .res:hover {
+      box-shadow: rgb(0, 253, 232) 0px 5px 15px;
+    }
+
+    .drawpopup {
+      background-color: black;
+      height: 100vh;
+      width: 100%;
+      position: absolute;
+      top: 0%;
+      left: 0%;
+      opacity: 0.9;
+      display: none;
+    }
+    .innerpopup {
+      position: absolute;
+      left: 39%;
+      top: 40%;
+      transform: (-50%, -50%);
+      width: 300px;
+      height: 100px;
+      background-color: rgb(218, 186, 186);
+      border-radius: 20px;
+      text-align: center;
+      align-content: center;
+      text-shadow: 1px 1px 2px black, 0 0 1em rgba(255, 0, 0, 0.781), 0 0 0.2em rgba(255, 0, 0, 0.692);
+      font-weight: 900;
+      font-size: larger;
+      box-shadow: rgba(253, 17, 0, 0.63) 0px 5px 15px;
+    }
+
+    .OK {
+      position: absolute;
+      right: 2%;
+      top: 2%;
+      padding: 3px 10px;
+      border: none;
+      border-radius: 20px;
+      background-color: red;
+      font-size: larger;
+      color: aliceblue;
+    }
+    .OK:hover {
+      box-shadow: rgba(253, 17, 0, 0.63) 0px 5px 15px;
+      background-color: darkred;
+    }
+  </style>
+  <body>
+    <h1>XOXO GAME</h1>
+
+    <div class="container">
+      <button id="b1" class="item" onclick="play('b1')"></button>
+      <button id="b2" class="item" onclick="play('b2')"></button>
+      <button id="b3" class="item" onclick="play('b3')"></button>
+      <button id="b4" class="item" onclick="play('b4')"></button>
+      <button id="b5" class="item" onclick="play('b5')"></button>
+      <button id="b6" class="item" onclick="play('b6')"></button>
+      <button id="b7" class="item" onclick="play('b7')"></button>
+      <button id="b8" class="item" onclick="play('b8')"></button>
+      <button id="b9" class="item" onclick="play('b9')"></button>
+    </div>
+
+    <div>
+      <button class="res" onclick="reset()">Reset</button>
+    </div>
+
+    <div id="drawpopup" class="drawpopup">
+      <div class="innerpopup">
+        <p>MATCH DRAW 🥺</p>
+        <button class="OK" onclick="OKDRAW()">x</button>
+      </div>
+    </div>
+
+    <div id="xwinpopup" class="drawpopup">
+      <div class="innerpopup">
+        <p>✨ X WIN ✨</p>
+        <button class="OK" onclick="OKX()">x</button>
+      </div>
+    </div>
+
+    <div id="owinpopup" class="drawpopup">
+      <div class="innerpopup">
+        <p>✨ O WIN ✨</p>
+        <button class="OK" onclick="OKO()">x</button>
+      </div>
+    </div>
+
+    <script>
+      var box = "x";
+      var check = false;
+      function play(game) {
+        if (document.getElementById(game).innerText == "" && check == false) {
+          document.getElementById(game).innerText = box;
+          if (box == "x") {
+            box = "o";
+          } else {
+            box = "x";
+          }
+        }
+        //x win
+        if (
+          (document.getElementById("b1").innerText == "x" && document.getElementById("b2").innerText == "x" && document.getElementById("b3").innerText == "x") ||
+          (document.getElementById("b4").innerText == "x" && document.getElementById("b5").innerText == "x" && document.getElementById("b6").innerText == "x") ||
+          (document.getElementById("b7").innerText == "x" && document.getElementById("b8").innerText == "x" && document.getElementById("b9").innerText == "x") ||
+          (document.getElementById("b1").innerText == "x" && document.getElementById("b4").innerText == "x" && document.getElementById("b7").innerText == "x") ||
+          (document.getElementById("b2").innerText == "x" && document.getElementById("b5").innerText == "x" && document.getElementById("b8").innerText == "x") ||
+          (document.getElementById("b3").innerText == "x" && document.getElementById("b6").innerText == "x" && document.getElementById("b9").innerText == "x") ||
+          (document.getElementById("b1").innerText == "x" && document.getElementById("b5").innerText == "x" && document.getElementById("b9").innerText == "x") ||
+          (document.getElementById("b3").innerText == "x" && document.getElementById("b5").innerText == "x" && document.getElementById("b7").innerText == "x")
+        ) {
+          check = true;
+          xwinpopup();
+        }
+        // o win
+        if (
+          (document.getElementById("b1").innerText == "o" && document.getElementById("b2").innerText == "o" && document.getElementById("b3").innerText == "o") ||
+          (document.getElementById("b4").innerText == "o" && document.getElementById("b5").innerText == "o" && document.getElementById("b6").innerText == "o") ||
+          (document.getElementById("b7").innerText == "o" && document.getElementById("b8").innerText == "o" && document.getElementById("b9").innerText == "o") ||
+          (document.getElementById("b1").innerText == "o" && document.getElementById("b4").innerText == "o" && document.getElementById("b7").innerText == "o") ||
+          (document.getElementById("b2").innerText == "o" && document.getElementById("b5").innerText == "o" && document.getElementById("b8").innerText == "o") ||
+          (document.getElementById("b3").innerText == "o" && document.getElementById("b6").innerText == "o" && document.getElementById("b9").innerText == "o") ||
+          (document.getElementById("b1").innerText == "o" && document.getElementById("b5").innerText == "o" && document.getElementById("b9").innerText == "o") ||
+          (document.getElementById("b3").innerText == "o" && document.getElementById("b5").innerText == "o" && document.getElementById("b7").innerText == "o")
+        ) {
+          check = true;
+          owinpopup();
+        }
+        // MATCH DRAW
+        if (
+          document.getElementById("b1").innerText != "" &&
+          document.getElementById("b2").innerText != "" &&
+          document.getElementById("b3").innerText != "" &&
+          document.getElementById("b4").innerText != "" &&
+          document.getElementById("b5").innerText != "" &&
+          document.getElementById("b6").innerText != "" &&
+          document.getElementById("b7").innerText != "" &&
+          document.getElementById("b8").innerText != "" &&
+          document.getElementById("b9").innerText != ""
+        ) {
+          drawpopup();
+        }
+      }
+      //x win
+      function xwinpopup() {
+        document.getElementById("xwinpopup").style.display = "block";
+      }
+      function OKX() {
+        document.getElementById("xwinpopup").style.display = "none";
+      }
+      //o win
+      function owinpopup() {
+        document.getElementById("owinpopup").style.display = "block";
+      }
+      function OKO() {
+        document.getElementById("owinpopup").style.display = "none";
+      }
+      //match draw
+      function drawpopup() {
+        document.getElementById("drawpopup").style.display = "block";
+      }
+      function OKDRAW() {
+        document.getElementById("drawpopup").style.display = "none";
+      }
+
+      function reset() {
+        document.getElementById("b1").innerText = "";
+        document.getElementById("b2").innerText = "";
+        document.getElementById("b3").innerText = "";
+        document.getElementById("b4").innerText = "";
+        document.getElementById("b5").innerText = "";
+        document.getElementById("b6").innerText = "";
+        document.getElementById("b7").innerText = "";
+        document.getElementById("b8").innerText = "";
+        document.getElementById("b9").innerText = "";
+        box = "x";
+        check = false;
+      }
+    </script>
+  </body>
+</html>
